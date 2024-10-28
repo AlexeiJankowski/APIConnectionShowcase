@@ -18,8 +18,7 @@ data class Product(
     @SerialName("image")
     val image: String,
     @SerialName("rating")
-    val rating: Rating,
-    var quantity: Int = 1
+    val rating: Rating
 )
 
 @Serializable

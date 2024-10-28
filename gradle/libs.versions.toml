@@ -21,6 +21,7 @@ coroutinesTest = "1.7.3"
 truth = "1.1.5"
 
 mockk = "1.13.3"
+runtimeLivedata = "1.7.4"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -66,6 +67,7 @@ test-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", ve
 test-truth = { module = "com.google.truth:truth", version.ref = "truth" }
 
 test-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [bundles]
 compose = ["compose.ui", "compose.ui.graphics", "compose.ui.tooling", "compose.material3", "compose.viewmodel", "coil-compose", "compose-lifecycle"]

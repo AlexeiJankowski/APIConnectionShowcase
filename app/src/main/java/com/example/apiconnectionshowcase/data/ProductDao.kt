@@ -7,11 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDao {
-    @Transaction
-    @Query("""
-        SELECT * FROM Product
-        INNER JOIN Category ON Product.categoryId = Category.id
-        WHERE Product.id = :productId
-    """)
-    suspend fun getProducts(productId: Long): List<ProductWithCategory>
+    @Query("SELECT * FROM Product")
+    suspend fun getProducts(): List<ProductEntity>
 }

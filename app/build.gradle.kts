@@ -82,6 +82,7 @@ dependencies {
     implementation(libs.androidx.window)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.androidx.runtime.livedata)
     debugImplementation(libs.leakcanary.android)
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)

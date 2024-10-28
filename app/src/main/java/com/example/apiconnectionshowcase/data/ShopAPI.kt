@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ShopAPI {
+//    Product section
     @GET("products/categories")
     suspend fun fetchCategories(): Response<List<String>>
 
@@ -26,4 +27,12 @@ interface ShopAPI {
     suspend fun getProduct(
         @Path("id") id: Int
     ): Response<Product>
+
+//    User section
+    @GET("users")
+    suspend fun getUsers(): List<User>
+
+//    Cart section
+    @GET("carts")
+    suspend fun getAllCarts(): Response<List<Cart>>
 }

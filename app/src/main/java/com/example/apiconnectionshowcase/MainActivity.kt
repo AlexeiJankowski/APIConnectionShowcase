@@ -37,6 +37,7 @@ import com.example.apiconnectionshowcase.navigation.AppNavigation
 import com.example.apiconnectionshowcase.navigation.Screens
 import com.example.apiconnectionshowcase.ui.theme.APIConnectionShowcaseTheme
 import com.example.apiconnectionshowcase.viewmodel.CategoryViewModel
+import com.example.apiconnectionshowcase.viewmodel.UserViewModel
 import com.example.apiconnectionshowcase.viewmodel.ProductViewModel
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -50,6 +51,7 @@ class MainActivity : ComponentActivity() {
             APIConnectionShowcaseTheme {
                 val navController = rememberNavController()
                 val productViewModel: ProductViewModel = koinViewModel()
+                val userViewModel: UserViewModel = koinViewModel()
                 val drawerState = rememberDrawerState(DrawerValue.Closed)
                 val scope = rememberCoroutineScope()
 
@@ -122,6 +124,7 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { innerPadding ->
                         AppNavigation(
+                            userViewModel = userViewModel,
                             productViewModel = productViewModel,
                             modifier = Modifier.padding(innerPadding),
                             navHostController = navController

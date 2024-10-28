@@ -1,5 +1,6 @@
 package com.example.apiconnectionshowcase.views
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,25 +36,42 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.example.apiconnectionshowcase.data.Product
 import com.example.apiconnectionshowcase.viewmodel.ProductViewModel
+import com.example.apiconnectionshowcase.viewmodel.UserViewModel
 
 @Composable
 fun Cart(
     modifier: Modifier,
     productViewModel: ProductViewModel,
+    userViewModel: UserViewModel,
     onProductClicked: () -> Unit
 ) {
-    productViewModel.getCart()
+    productViewModel.getProducts()
     val productsUIState by productViewModel.productsUIState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        userViewModel.getCart()
+    }
+    val cart by userViewModel.cart
 
     LazyColumn(
         modifier = modifier
     ) {
-        items(productsUIState.products) { product ->
-            CartItem(
-                productViewModel = productViewModel,
-                onProductClicked = onProductClicked,
-                product = product
-            )
+        cart?.products?.let { cartProducts ->
+            items(cartProducts) { cartProduct ->
+                Log.d("ProductID", cartProduct.productId.toString())
+                // Get product details based on cart's product ID
+                val product = productsUIState.products.find { it.id == cartProduct.productId }
+                if (product != null) {
+                    Log.d("ProductIN", product.title)
+                    CartItem(
+                        productViewModel = productViewModel,
+                        onProductClicked = onProductClicked,
+                        product = product
+                    )
+                }
+            }
+        } ?: item {
+            Text("No items in the cart", modifier = Modifier.padding(16.dp))
         }
     }
 }

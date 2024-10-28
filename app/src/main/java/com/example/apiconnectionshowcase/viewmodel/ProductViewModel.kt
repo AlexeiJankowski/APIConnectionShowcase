@@ -1,7 +1,6 @@
 package com.example.apiconnectionshowcase.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.apiconnectionshowcase.ProductUIState
@@ -64,24 +63,6 @@ class ProductViewModel(
         cartItems.value += product
     }
 
-    fun getNumOfProducts(number: Int = 1) {
-        productsUIState.value = ProductsUIState(isLoading = true)
-        viewModelScope.launch {
-            when (val result = productRepository.getLimitedProducts(number)) {
-                is NetworkResult.Success -> {
-                    productsUIState.update {
-                        it.copy(isLoading = false, products = result.data)
-                    }
-                }
-                is NetworkResult.Error -> {
-                    productsUIState.update {
-                        it.copy(isLoading = false, error = result.error)
-                    }
-                }
-            }
-        }
-    }
-
     fun getProduct(id: Int) {
         productUIState.value = ProductUIState(isLoading = true)
         viewModelScope.launch {
@@ -112,8 +93,7 @@ class ProductViewModel(
                         description = product.description,
                         category = product.category,
                         image = product.image,
-                        rating = product.rating,
-                        quantity = quantity
+                        rating = product.rating
                     )
                 } else {
                     product

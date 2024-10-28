@@ -51,14 +51,14 @@ fun ProductDetails(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         if (productUIState.isLoading) {
-            Text(text = "Loading...") // Show loading state
+            Text(text = "Loading...")
         } else if (productUIState.selectedProduct != null) {
             ProductInfo(
                 product = productUIState.selectedProduct!!,
                 productViewModel = productViewModel
             )
         } else if (productUIState.error != null) {
-            Text(text = "Error: ${productUIState.error}") // Show error if any
+            Text(text = "Error: ${productUIState.error}")
         } else {
             Text(text = "Nothing to show")
         }
@@ -120,7 +120,7 @@ fun ProductInfo(
         ) {
             repeat(5) { index ->
                 val starIcon = if (index < product.rating.rate.toInt()) {
-                    Icons.Filled.Star // Full star
+                    Icons.Filled.Star
                 } else {
                     Icons.Outlined.Star
                 }
@@ -171,9 +171,9 @@ fun ProductInfo(
             }
         }
 
-        if (product.price * product.quantity != product.price) {
+        if (product.price * productCount.intValue != product.price) {
             Text(
-                text = "Total: $${product.price * product.quantity}",
+                text = "Total: $${product.price * productCount.intValue}",
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.SemiBold
             )

@@ -10,7 +10,10 @@ import com.example.apiconnectionshowcase.data.ProductRepository
 import com.example.apiconnectionshowcase.data.ProductRepositoryImpl
 import com.example.apiconnectionshowcase.data.ShopAPI
 import com.example.apiconnectionshowcase.data.ShopDatabase
+import com.example.apiconnectionshowcase.data.UserRepository
+import com.example.apiconnectionshowcase.data.UserRepositoryImpl
 import com.example.apiconnectionshowcase.viewmodel.CategoryViewModel
+import com.example.apiconnectionshowcase.viewmodel.UserViewModel
 import com.example.apiconnectionshowcase.viewmodel.ProductViewModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -46,6 +49,9 @@ val appModules = module {
     single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
     viewModel { CategoryViewModel(get()) }
 
+    single<UserRepository> { UserRepositoryImpl(get()) }
+    viewModel { UserViewModel(get()) }
+
     single<ProductRepository> { ProductRepositoryImpl(get(), get()) }
     viewModel { ProductViewModel(get()) }
 
@@ -60,24 +66,24 @@ val appModules = module {
     }
     single { get<Retrofit>().create(ShopAPI::class.java) }
 
-//    single {
-//        Room.databaseBuilder(
-//            androidContext(),
-//            ShopDatabase::class.java,
-//            "shop-database"
-//        ).addCallback(object : RoomDatabase.Callback() {
-//            override fun onCreate(db: SupportSQLiteDatabase) {
-//                super.onCreate(db)
-//                Log.d("RoomDB", "Database created")
-//            }
-//
-//            override fun onOpen(db: SupportSQLiteDatabase) {
-//                super.onOpen(db)
-//                Log.d("RoomDB", "Database opened")
-//            }
-//        })
-//            .build()
-//    }
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            ShopDatabase::class.java,
+            "shop-database"
+        ).addCallback(object : RoomDatabase.Callback() {
+            override fun onCreate(db: SupportSQLiteDatabase) {
+                super.onCreate(db)
+                Log.d("RoomDB", "Database created")
+            }
+
+            override fun onOpen(db: SupportSQLiteDatabase) {
+                super.onOpen(db)
+                Log.d("RoomDB", "Database opened")
+            }
+        })
+            .build()
+    }
 //    single { get<ShopDatabase>().categoryDao() }
-//    single { get<ShopDatabase>().productDao() }
+    single { get<ShopDatabase>().productDao() }
 }
